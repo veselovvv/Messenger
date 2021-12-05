@@ -10,12 +10,14 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var selectPhotoButton: ImageButton
+    private lateinit var usernameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var registerButton: Button
@@ -28,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         selectPhotoButton = findViewById(R.id.selectphoto_button_register)
+        usernameEditText = findViewById(R.id.username_edittext_register)
         emailEditText = findViewById(R.id.email_edittext_register)
         passwordEditText = findViewById(R.id.password_edittext_register)
         registerButton = findViewById(R.id.register_button_register)
@@ -94,7 +97,25 @@ class RegisterActivity : AppCompatActivity() {
 
         ref.putFile(selectedPhotoUri!!)
             .addOnSuccessListener {
+                ref.downloadUrl.addOnSuccessListener {
+                    saveUserToFirebaseDatabase(it.toString())
+                }
+            }
+            .addOnFailureListener {
+
+            }
+    }
+
+    private fun saveUserToFirebaseDatabase(profileImageUrl: String) {
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val user = User(uid, usernameEditText.text.toString(), profileImageUrl)
+
+        ref.setValue(user)
+            .addOnSuccessListener {
 
             }
     }
 }
+
+class User(val uid: String, val username: String, val profileImageUrl: String)
