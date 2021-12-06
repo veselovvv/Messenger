@@ -2,38 +2,40 @@ package com.veselovvv.messenger
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var selectPhotoButton: ImageButton
+    private lateinit var selectPhotoButton: Button
     private lateinit var usernameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var registerButton: Button
+    private lateinit var selectPhotoCircleImageView: CircleImageView
     private lateinit var alreadyHaveAccountTextView: TextView
 
     var selectedPhotoUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_register)
 
         selectPhotoButton = findViewById(R.id.selectphoto_button_register)
         usernameEditText = findViewById(R.id.username_edittext_register)
         emailEditText = findViewById(R.id.email_edittext_register)
         passwordEditText = findViewById(R.id.password_edittext_register)
         registerButton = findViewById(R.id.register_button_register)
+        selectPhotoCircleImageView = findViewById(R.id.selectphoto_imageview_register)
         alreadyHaveAccountTextView = findViewById(R.id.already_have_account_text_view)
 
         registerButton.setOnClickListener {
@@ -59,9 +61,12 @@ class RegisterActivity : AppCompatActivity() {
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             selectedPhotoUri = data.data
             val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
-            val bitmapDrawable = BitmapDrawable(bitmap)
 
-            selectPhotoButton.setBackgroundDrawable(bitmapDrawable)
+            selectPhotoCircleImageView.setImageBitmap(bitmap)
+            selectPhotoButton.alpha = 0f
+
+            //val bitmapDrawable = BitmapDrawable(bitmap)
+            // selectPhotoButton.setBackgroundDrawable(bitmapDrawable)
         }
     }
 
