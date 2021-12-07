@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+ package com.veselovvv.messenger
 
 import android.app.Activity
 import android.content.Intent
@@ -113,7 +113,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveUserToFirebaseDatabase(profileImageUrl: String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        val ref = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/users/$uid")
+
         val user = User(uid, usernameEditText.text.toString(), profileImageUrl)
 
         ref.setValue(user)
@@ -125,4 +128,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 }
 
-class User(val uid: String, val username: String, val profileImageUrl: String)
+class User(val uid: String, val username: String, val profileImageUrl: String) {
+    constructor() : this("", "", "")
+}
