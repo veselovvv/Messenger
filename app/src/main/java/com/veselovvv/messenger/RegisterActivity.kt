@@ -64,9 +64,6 @@ class RegisterActivity : AppCompatActivity() {
 
             selectPhotoCircleImageView.setImageBitmap(bitmap)
             selectPhotoButton.alpha = 0f
-
-            //val bitmapDrawable = BitmapDrawable(bitmap)
-            // selectPhotoButton.setBackgroundDrawable(bitmapDrawable)
         }
     }
 
@@ -114,7 +111,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun saveUserToFirebaseDatabase(profileImageUrl: String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/users/$uid")
 
         val user = User(uid, usernameEditText.text.toString(), profileImageUrl)
