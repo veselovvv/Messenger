@@ -25,13 +25,12 @@ class NewMessageActivity : AppCompatActivity() {
         supportActionBar?.title = "Select User"
 
         recyclerView = findViewById(R.id.recyclerview_newmessage)
-
         fetchUsers()
     }
 
     private fun fetchUsers() {
         val ref = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/users")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
