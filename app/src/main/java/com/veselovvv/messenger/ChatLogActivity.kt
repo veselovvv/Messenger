@@ -37,7 +37,6 @@ class ChatLogActivity : AppCompatActivity() {
         val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
         supportActionBar?.title = user?.username
 
-        //setupData()
         listenForMessages()
 
         sendButton.setOnClickListener {
