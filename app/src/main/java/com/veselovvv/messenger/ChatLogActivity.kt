@@ -46,7 +46,7 @@ class ChatLogActivity : AppCompatActivity() {
 
     private fun listenForMessages() {
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/messages")
 
         ref.addChildEventListener(object : ChildEventListener {
