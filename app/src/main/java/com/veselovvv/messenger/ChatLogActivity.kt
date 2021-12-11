@@ -113,6 +113,16 @@ class ChatLogActivity : AppCompatActivity() {
             }
 
         toRef.setValue(chatMessage)
+
+        val lastMessageRef = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/last-messages/$fromId/$toId")
+        lastMessageRef.setValue(chatMessage)
+
+        val lastMessageToRef = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/last-messages/$toId/$fromId")
+        lastMessageToRef.setValue(chatMessage)
     }
 }
 

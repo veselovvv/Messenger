@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
+import kotlinx.android.synthetic.main.last_message_row.view.*
+import kotlinx.android.synthetic.main.user_row_new_message.view.*
 
 class LastMessagesActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    val adapter = GroupAdapter<GroupieViewHolder>()
+    val lastMessagesMap = HashMap<String, ChatMessage>()
 
     companion object {
         var currentUser: User? = null
@@ -21,15 +29,63 @@ class LastMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_last_messages)
 
+        recyclerView = findViewById(R.id.recyclerview_last_messages)
+        recyclerView.adapter = adapter
+
+        listenForLastMessages()
         fetchCurrentUser()
         verifyUserIsLoggedIn()
+    }
+
+    private fun listenForLastMessages() {
+        val fromId = FirebaseAuth.getInstance().uid
+
+        val ref = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/last-messages/$fromId")
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                lastMessagesMap[snapshot.key!!] = chatMessage
+
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                lastMessagesMap[snapshot.key!!] = chatMessage
+
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+    }
+
+    private fun refreshRecyclerViewMessages() {
+        adapter.clear()
+
+        lastMessagesMap.values.forEach {
+            adapter.add(LastMessageRow(it))
+        }
     }
 
     private fun fetchCurrentUser() {
         val uid = FirebaseAuth.getInstance().uid
 
         val ref = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/users/$uid")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -76,5 +132,15 @@ class LastMessagesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    class LastMessageRow(val chatMessage: ChatMessage) : Item<GroupieViewHolder>() {
+        override fun bind(viewHolder: GroupieViewHolder, position: Int) {
+            viewHolder.itemView.message_textview_last_message.text = chatMessage.text
+        }
+
+        override fun getLayout(): Int {
+            return R.layout.last_message_row
+        }
     }
 }

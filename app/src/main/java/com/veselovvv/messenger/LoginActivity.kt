@@ -1,9 +1,11 @@
 package com.veselovvv.messenger
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -24,15 +26,33 @@ class LoginActivity : AppCompatActivity() {
         backToRegisterTextView = findViewById(R.id.back_to_register_textview)
 
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-               // .addOnCompleteListener()
+            performLogin()
         }
 
         backToRegisterTextView.setOnClickListener {
             finish()
         }
+    }
+
+    private fun performLogin() {
+        val email = emailEditText.text.toString()
+        val password = passwordEditText.text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter text in text fields!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener {
+                if (!it.isSuccessful) return@addOnCompleteListener
+
+                val intent = Intent(this, LastMessagesActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to log in: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }
