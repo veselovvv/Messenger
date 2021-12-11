@@ -51,7 +51,7 @@ class ChatLogActivity : AppCompatActivity() {
         val toId = toUser?.uid
 
         val ref = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/user-messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
@@ -95,12 +95,12 @@ class ChatLogActivity : AppCompatActivity() {
         if (fromId == null || toId == null) return
 
         val ref = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/user-messages/$fromId/$toId")
             .push()
 
         val toRef = FirebaseDatabase
-            .getInstance("YourDatabaseLink")
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("/user-messages/$toId/$fromId")
             .push()
 
