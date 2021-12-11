@@ -111,7 +111,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun saveUserToFirebaseDatabase(profileImageUrl: String) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/users/$uid")
 
         val user = User(uid, usernameEditText.text.toString(), profileImageUrl)
