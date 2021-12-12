@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Messenger</string>
+
+    <string name="please_enter_text">Please enter text in text fields!</string>
+    <string name="message">Message</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    <string name="login_login">Login</string>
+    <string name="login_failed">Failed to log in</string>
+    <string name="login_back_to_registration">Back to registration</string>
+
+    <string name="register_register">Register</string>
+    <string name="register_failed">Failed to create user</string>
+    <string name="register_already_have_an_account">Already have an account?</string>
+    <string name="register_select_photo">Select photo</string>
+
+    <string name="menu_new_message">New Message</string>
+    <string name="menu_sign_out">Sign Out</string>
+
+    <string name="chatlog_enter_message">Enter a message</string>
+    <string name="chatlog_send">Send</string>
 </resources>

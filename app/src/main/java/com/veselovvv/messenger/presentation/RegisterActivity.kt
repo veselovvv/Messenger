@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,7 @@ import com.veselovvv.messenger.models.User
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
-class RegisterActivity : AppCompatActivity() {
+ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var selectPhotoButton: Button
     private lateinit var usernameEditText: EditText
@@ -74,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter text in text fields!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.please_enter_text, Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -84,12 +83,14 @@ class RegisterActivity : AppCompatActivity() {
                 if (!it.isSuccessful) return@addOnCompleteListener
 
                 // If successful:
-                Log.d("Main", "Successfully created user with uid: ${it.result?.user?.uid}")
-
                 uploadImageToFirebaseStorage()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to create user: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "${R.string.register_failed}: ${it.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

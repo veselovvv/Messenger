@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordEditText.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter text in text fields!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.please_enter_text, Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -48,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to log in: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "${R.string.login_failed}: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

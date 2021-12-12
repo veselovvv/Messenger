@@ -14,7 +14,7 @@
         android:background="@drawable/rounded_edittext_register_login"
         android:maxWidth="240dp"
         android:padding="16dp"
-        android:text="Message"
+        android:text="@string/message"
         app:layout_constraintEnd_toStartOf="@+id/imageview_chat_to_row"
         app:layout_constraintTop_toTopOf="@+id/imageview_chat_to_row" />
 

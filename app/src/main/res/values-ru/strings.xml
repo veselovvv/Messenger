@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Messenger</string>
+
+    <string name="please_enter_text">Заполните текстовые поля!</string>
+    <string name="message">Сообщений</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="email">Email</string>
+
+    <string name="login_login">Войти</string>
+    <string name="login_failed">Не удалось войти</string>
+    <string name="login_back_to_registration">Обратно к регистрации</string>
+
+    <string name="register_register">Регистрация</string>
+    <string name="register_failed">Не удалось создать пользователя</string>
+    <string name="register_already_have_an_account">Уже есть аккаунт?</string>
+    <string name="register_select_photo">Выберите фото</string>
+
+    <string name="menu_new_message">Новое сообщение</string>
+    <string name="menu_sign_out">Выйти</string>
+
+    <string name="chatlog_enter_message">Введите сообщение</string>
+    <string name="chatlog_send">Отправить</string>
+</resources>
