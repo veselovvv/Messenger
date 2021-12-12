@@ -34,7 +34,7 @@ class NewMessageActivity : AppCompatActivity() {
 
     private fun fetchUsers() {
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/users")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
