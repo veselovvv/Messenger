@@ -79,7 +79,7 @@ class LastMessagesActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().uid
 
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/last-messages/$fromId")
 
         ref.addChildEventListener(object : ChildEventListener {
@@ -115,7 +115,7 @@ class LastMessagesActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid
 
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/users/$uid")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
