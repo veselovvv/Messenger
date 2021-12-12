@@ -5,15 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
+import com.veselovvv.messenger.NewMessageActivity.Companion.USER_KEY
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import com.xwray.groupie.Item
-import kotlinx.android.synthetic.main.last_message_row.view.*
-import kotlinx.android.synthetic.main.user_row_new_message.view.*
 
 class LastMessagesActivity : AppCompatActivity() {
 
@@ -31,6 +29,15 @@ class LastMessagesActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerview_last_messages)
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(this, ChatLogActivity::class.java)
+            val row = item as LastMessageRow
+
+            intent.putExtra(USER_KEY, row.chatPartnerUser)
+            startActivity(intent)
+        }
 
         listenForLastMessages()
         fetchCurrentUser()
@@ -132,15 +139,5 @@ class LastMessagesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    class LastMessageRow(val chatMessage: ChatMessage) : Item<GroupieViewHolder>() {
-        override fun bind(viewHolder: GroupieViewHolder, position: Int) {
-            viewHolder.itemView.message_textview_last_message.text = chatMessage.text
-        }
-
-        override fun getLayout(): Int {
-            return R.layout.last_message_row
-        }
     }
 }

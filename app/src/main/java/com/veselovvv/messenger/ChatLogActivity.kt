@@ -66,6 +66,9 @@ class ChatLogActivity : AppCompatActivity() {
                         adapter.add(ChatToItem(chatMessage.text, toUser!!))
                     }
                 }
+
+                // Scroll to the last message:
+                recyclerView.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -108,8 +111,11 @@ class ChatLogActivity : AppCompatActivity() {
 
         ref.setValue(chatMessage)
             .addOnSuccessListener {
-                chatEditText.text.clear() // clear chatEditText when message is sent
-                recyclerView.scrollToPosition(adapter.itemCount - 1) // scroll to the last message
+                // Clear chatEditText when message is sent:
+                chatEditText.text.clear()
+
+                // Scroll to the last message:
+                recyclerView.scrollToPosition(adapter.itemCount - 1)
             }
 
         toRef.setValue(chatMessage)
