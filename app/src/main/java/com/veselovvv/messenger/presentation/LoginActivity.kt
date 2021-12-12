@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+package com.veselovvv.messenger.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.veselovvv.messenger.R
 
 class LoginActivity : AppCompatActivity() {
 
@@ -25,13 +26,8 @@ class LoginActivity : AppCompatActivity() {
         loginButton = findViewById(R.id.login_button_login)
         backToRegisterTextView = findViewById(R.id.back_to_register_textview)
 
-        loginButton.setOnClickListener {
-            performLogin()
-        }
-
-        backToRegisterTextView.setOnClickListener {
-            finish()
-        }
+        loginButton.setOnClickListener { performLogin() }
+        backToRegisterTextView.setOnClickListener { finish() }
     }
 
     private fun performLogin() {

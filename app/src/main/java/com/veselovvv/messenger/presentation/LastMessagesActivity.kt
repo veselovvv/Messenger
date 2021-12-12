@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+package com.veselovvv.messenger.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.veselovvv.messenger.NewMessageActivity.Companion.USER_KEY
+import com.veselovvv.messenger.presentation.NewMessageActivity.Companion.USER_KEY
+import com.veselovvv.messenger.R
+import com.veselovvv.messenger.models.ChatMessage
+import com.veselovvv.messenger.models.User
+import com.veselovvv.messenger.views.LastMessageRow
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 
@@ -29,7 +33,9 @@ class LastMessagesActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerview_last_messages)
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        recyclerView.addItemDecoration(
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        )
 
         adapter.setOnItemClickListener { item, view ->
             val intent = Intent(this, ChatLogActivity::class.java)
@@ -42,78 +48,6 @@ class LastMessagesActivity : AppCompatActivity() {
         listenForLastMessages()
         fetchCurrentUser()
         verifyUserIsLoggedIn()
-    }
-
-    private fun listenForLastMessages() {
-        val fromId = FirebaseAuth.getInstance().uid
-
-        val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
-            .getReference("/last-messages/$fromId")
-
-        ref.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
-                lastMessagesMap[snapshot.key!!] = chatMessage
-
-                refreshRecyclerViewMessages()
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
-                lastMessagesMap[snapshot.key!!] = chatMessage
-
-                refreshRecyclerViewMessages()
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-    }
-
-    private fun refreshRecyclerViewMessages() {
-        adapter.clear()
-
-        lastMessagesMap.values.forEach {
-            adapter.add(LastMessageRow(it))
-        }
-    }
-
-    private fun fetchCurrentUser() {
-        val uid = FirebaseAuth.getInstance().uid
-
-        val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
-            .getReference("/users/$uid")
-
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                currentUser = snapshot.getValue(User::class.java)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-    }
-
-    private fun verifyUserIsLoggedIn() {
-        val uid = FirebaseAuth.getInstance().uid
-
-        if (uid == null) {
-            val intent = Intent(this, RegisterActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -139,5 +73,67 @@ class LastMessagesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun listenForLastMessages() {
+        val fromId = FirebaseAuth.getInstance().uid
+
+        val ref = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/last-messages/$fromId")
+
+        ref.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                lastMessagesMap[snapshot.key!!] = chatMessage
+
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                val chatMessage = snapshot.getValue(ChatMessage::class.java) ?: return
+                lastMessagesMap[snapshot.key!!] = chatMessage
+
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {}
+            override fun onChildRemoved(snapshot: DataSnapshot) {}
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun refreshRecyclerViewMessages() {
+        adapter.clear()
+
+        lastMessagesMap.values.forEach {
+            adapter.add(LastMessageRow(it))
+        }
+    }
+
+    private fun fetchCurrentUser() {
+        val uid = FirebaseAuth.getInstance().uid
+
+        val ref = FirebaseDatabase
+            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("/users/$uid")
+
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUser = snapshot.getValue(User::class.java)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+    }
+
+    private fun verifyUserIsLoggedIn() {
+        val uid = FirebaseAuth.getInstance().uid
+
+        if (uid == null) {
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+        }
     }
 }

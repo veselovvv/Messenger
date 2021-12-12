@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+package com.veselovvv.messenger.views
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -6,6 +6,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
+import com.veselovvv.messenger.R
+import com.veselovvv.messenger.models.ChatMessage
+import com.veselovvv.messenger.models.User
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.last_message_row.view.*
@@ -38,9 +41,7 @@ class LastMessageRow(val chatMessage: ChatMessage) : Item<GroupieViewHolder>() {
                 Picasso.get().load(chatPartnerUser?.profileImageUrl).into(targetImageView)
             }
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+            override fun onCancelled(error: DatabaseError) {}
         })
     }
 

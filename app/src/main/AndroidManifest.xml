@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Messenger">
         <activity
-            android:name=".LastMessagesActivity"
+            android:name=".presentation.LastMessagesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,23 +21,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
+            android:name=".presentation.RegisterActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".presentation.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".NewMessageActivity"
+            android:name=".presentation.NewMessageActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LastMessagesActivity">
+                android:value=".presentation.LastMessagesActivity">
             </meta-data>
         </activity>
-        <activity android:name=".ChatLogActivity">
+        <activity android:name=".presentation.ChatLogActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".LastMessagesActivity">
+                android:value=".presentation.LastMessagesActivity">
             </meta-data>
         </activity>
     </application>

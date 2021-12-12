@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+package com.veselovvv.messenger.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

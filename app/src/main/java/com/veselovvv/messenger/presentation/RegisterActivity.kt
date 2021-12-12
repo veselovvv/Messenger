@@ -1,4 +1,4 @@
- package com.veselovvv.messenger
+ package com.veselovvv.messenger.presentation
 
 import android.app.Activity
 import android.content.Intent
@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.veselovvv.messenger.R
+import com.veselovvv.messenger.models.User
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -103,9 +105,7 @@ class RegisterActivity : AppCompatActivity() {
                     saveUserToFirebaseDatabase(it.toString())
                 }
             }
-            .addOnFailureListener {
-
-            }
+            .addOnFailureListener {}
     }
 
     private fun saveUserToFirebaseDatabase(profileImageUrl: String) {

@@ -1,4 +1,4 @@
-package com.veselovvv.messenger
+package com.veselovvv.messenger.models
 
 class ChatMessage(
     val id: String,
