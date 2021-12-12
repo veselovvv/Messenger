@@ -29,7 +29,7 @@ class LastMessageRow(val chatMessage: ChatMessage) : Item<GroupieViewHolder>() {
         }
 
         val ref = FirebaseDatabase
-            .getInstance("https://messenger-79c50-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getInstance("YourDatabaseLink")
             .getReference("/users/$chatPartnerId")
 
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
