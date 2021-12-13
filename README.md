@@ -3,11 +3,15 @@
 This app supports English and Russian.
 
 ![image](https://user-images.githubusercontent.com/76612421/145778307-4f96aa16-8093-416d-9e8a-b5787fd4115b.png)
-![2](https://user-images.githubusercontent.com/76612421/145776961-d5365910-ae06-4d07-a700-e1efb0d3b71a.png)
-![3](https://user-images.githubusercontent.com/76612421/145776968-3db527a6-56d3-4ecb-9497-ecdd9194a941.png) ![4](https://user-images.githubusercontent.com/76612421/145776980-b81b6a8b-4bb7-454c-82c4-f6c898ce8819.png)
-![5](https://user-images.githubusercontent.com/76612421/145776995-278a7e46-32f1-478b-963d-08e8e9b615ca.png) ![6](https://user-images.githubusercontent.com/76612421/145777004-518dc27f-b02e-4b81-95ba-8b25dcb830ab.png)
-![7](https://user-images.githubusercontent.com/76612421/145777011-37f1cf19-d10e-4e7c-9ee1-40e5579c7a43.png) ![8](https://user-images.githubusercontent.com/76612421/145777027-12255eb2-b80b-4f74-950e-6ffd10d65644.png)
-![9](https://user-images.githubusercontent.com/76612421/145777036-ba6bb503-b499-45a9-8bdd-06e0a2136f6d.png)
+![image](https://user-images.githubusercontent.com/76612421/145778379-efc0b927-a508-40f1-b827-3e72ea4da570.png)
+![image](https://user-images.githubusercontent.com/76612421/145778426-fa351fb4-4e97-484f-b97c-fe8deaf51d93.png)
+![image](https://user-images.githubusercontent.com/76612421/145778467-5cbb4647-4218-4285-b721-e250283d0489.png)
+![image](https://user-images.githubusercontent.com/76612421/145778512-bd556c9e-8812-4be7-8672-0bb63a97d500.png)
+![image](https://user-images.githubusercontent.com/76612421/145778555-56b5c177-2c64-4bbb-809f-ef74f88bcbdf.png)
+![image](https://user-images.githubusercontent.com/76612421/145778600-754ad962-9ac6-47dc-a3d7-04e9d390c2c3.png)
+![image](https://user-images.githubusercontent.com/76612421/145778625-f633b6ef-96f6-4519-b64c-f0f43e04e0e0.png)
+![image](https://user-images.githubusercontent.com/76612421/145778659-1efcd26a-3d26-4015-b322-f66a911ac8c5.png)
+
 
 
 # Getting Started
